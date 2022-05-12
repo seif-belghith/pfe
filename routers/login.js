@@ -8,12 +8,17 @@ import {
   StatusBar,
 } from "react-native";
 import { useState } from "react";
+import { login } from "../api";
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const onLogin = () => {
-    Alert.alert(username + "  " + password);
+    login(username, password)
+      .then(() => {
+        navigation.navigate("Home");
+      })
+      .catch((err) => console.log("error:", err.message));
   };
   return (
     <View style={styles.container}>
